@@ -3,8 +3,8 @@ package com.example.exercise.todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/todo")
@@ -19,6 +19,10 @@ public class TodoController {
     @GetMapping
     public List<Todo> getString(){
         return todoService.getTodo();
+    }
+    @GetMapping("/{id}")
+    public Optional<Todo> getIntern(@PathVariable Integer id){
+        return todoService.getInternById(id);
     }
     //post
     @PostMapping

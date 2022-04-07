@@ -17,11 +17,16 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
+    //Get
     public List<Todo> getTodo(){
+
         return todoRepository.findAll();
     }
-
-
+    //Get by id
+    public Optional<Todo> getInternById(Integer id) {
+        return todoRepository.findById(id);
+    }
+    //Post
     public void addNewTodo(Todo todo) {
         Optional<Todo> internOptional = todoRepository.findInternByUsername(todo.getUsername());
         if(internOptional.isPresent()){
@@ -29,7 +34,7 @@ public class TodoService {
         }
         todoRepository.save(todo);
     }
-
+    //Delete
     public void deleteIntern(Integer internId) {
         //check if the the intern is existing
         boolean exists = todoRepository.existsById(internId);
@@ -38,7 +43,7 @@ public class TodoService {
         }
         todoRepository.deleteById(internId);
     }
-    //update database value
+    //PUT or update database value
     @Transactional
     public void updateInterns(Integer internId, String username, String description) {
         //find user by ID in the data base and collect data and store it in todo variable
@@ -53,4 +58,5 @@ public class TodoService {
 
         }
 
-    }
+
+}
